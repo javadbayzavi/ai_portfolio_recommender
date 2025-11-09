@@ -9,8 +9,18 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
+  id         String      @id @default(uuid())
+  name       String
+  email      String      @unique
+  createdAt  DateTime    @default(now())
+  portfolios Portfolio[]
+}
+
+model Portfolio {
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
 }
