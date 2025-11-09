@@ -9,7 +9,7 @@
     "module": "commonjs",
     "target": "esnext",
     "lib": ["esnext"],
-    "types": ["node"],
+    "types": ["node", "jest"],
 
     "sourceMap": true,
     "declaration": true,
