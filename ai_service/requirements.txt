@@ -1,0 +1,12 @@
+sqlalchemy
+requests
+localstack
+pytest
+openai
+sentence-transformers
+numpy
+faiss-cpu 
+fastapi
+dotenv
+mcp
+mcp-client
