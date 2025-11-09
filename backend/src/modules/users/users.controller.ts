@@ -6,31 +6,30 @@ import { UserUpdateDTO } from "./dto/user.update.dto";
 
 @Controller("users")
 export class UsersController {
-    constructor(private service: UsersService) {}
+  constructor(private service: UsersService) {}
 
-    @Get()
-    getUsers(){
-        return this.service.getUsers();
-    }
+  @Get()
+  getUsers() {
+    return this.service.getUsers();
+  }
 
-    @Get(":id")
-    getUser(@Param("id") id: string){
-        return this.service.getUser(id)
-    }
+  @Get(":id")
+  getUser(@Param("id") id: string) {
+    return this.service.getUser(id);
+  }
 
-    @Post()
-    createUser(@Body() user: UserCreateDTO){
-        return this.service.create(user)
-    }
+  @Post()
+  createUser(@Body() user: UserCreateDTO) {
+    return this.service.create(user);
+  }
 
-    @Put()
-    updateUser(@Body() user: UserUpdateDTO){
-        return this.service.update(user)
-    }
+  @Put()
+  updateUser(@Body() user: UserUpdateDTO) {
+    return this.service.update(user);
+  }
 
-    @Delete(":id")
-    deleteUser(@Param("id") id: string){
-        return this.service.delete(id)
-    }
-
+  @Delete(":id")
+  deleteUser(@Param("id") id: string) {
+    return this.service.delete(id);
+  }
 }
