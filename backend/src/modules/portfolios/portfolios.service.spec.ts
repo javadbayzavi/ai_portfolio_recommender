@@ -10,11 +10,16 @@ const mockPrisma = {
      update: jest.fn(),
      delete: jest.fn()
   }
+  ,
+  user : {
+    findUnique: jest.fn()
+  }
 }
 
 describe("PortfoliosService", () => {
   let service: PortfoliosService;
   let prisma: PrismaService;
+
   const mockedPortfolio = {
     id : "1",
     name : "Sample portfolio",
@@ -22,6 +27,7 @@ describe("PortfoliosService", () => {
     created_at : new Date(),
     updated_at : new Date()
   }
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -80,9 +86,16 @@ describe("PortfoliosService", () => {
   })
 
   it("should return user portfolios", async () => {
-    mockPrisma.portfolio.findMany.mockResolvedValue([mockedPortfolio])
-    let result_portfolio = await service.getUserPortfolios("1")
-    expect(result_portfolio).toEqual([mockedPortfolio])
+    const user = {
+      id: "1",
+      name: "John",
+      email: "john@example.com",
+    };
+
+    mockPrisma.user.findUnique.mockResolvedValue(user)
+    mockPrisma.portfolio.findFirst.mockResolvedValue(mockedPortfolio)
+    let result_portfolio = await service.getEnrichedPortfolio("1")
+    expect(result_portfolio).toEqual({...mockedPortfolio, user})
   })
 
 });

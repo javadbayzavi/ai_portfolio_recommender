@@ -32,4 +32,9 @@ export class UsersController {
   deleteUser(@Param("id") id: string) {
     return this.service.delete(id);
   }
+
+  @Get(":id/portfolios")
+  getUserPortfolios(@Param("id") id: string) {
+    return this.service.getUserPortfolios(id);
+  }
 }

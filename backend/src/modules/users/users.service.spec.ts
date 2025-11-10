@@ -26,6 +26,9 @@ const mockPrismaService = {
       .fn()
       .mockImplementation(({ where: { id } }) => Promise.resolve({ id })),
   },
+  portfolio: {
+    findMany: jest.fn(),
+  }
 };
 
 describe("UsersService", () => {
@@ -113,4 +116,18 @@ describe("UsersService", () => {
     const result = await service.create(user);
     expect(result).toEqual({ id: "1", ...user });
   });
+
+  it("should return user portfolios", async () => {
+    const enrichedPortfolio = {
+      id: "1",
+      name: "Sample portfolio",
+      user_id: "1",
+      created_at: new Date(),
+      updated_at: new Date(),
+    }
+    const user = await service.getUser("1")
+    mockPrismaService.portfolio.findMany.mockResolvedValue([enrichedPortfolio])
+    const portfolios = await service.getUserPortfolios("1");
+    expect(portfolios).toEqual({...user, portfolios : [enrichedPortfolio]})
+  })
 });

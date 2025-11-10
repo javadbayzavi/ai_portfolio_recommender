@@ -40,4 +40,18 @@ export class UsersService {
       },
     });
   }
+
+  async getUserPortfolios(userId: string){
+    const user = await this.getUser(userId)
+    if(!user) throw new Error("User not found")
+    const ports = await this.prisma.portfolio.findMany({
+      where: {
+        user_id: userId
+      }
+    })
+    return {
+      ...user,
+      portfolios: ports
+    }
+  }
 }

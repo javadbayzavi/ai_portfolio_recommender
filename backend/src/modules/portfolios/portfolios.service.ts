@@ -47,4 +47,19 @@ export class PortfoliosService {
             }
         })
     }
+
+    async getEnrichedPortfolio(portfolioId: string){
+        const portfolio = await this.getPortfolio(portfolioId)
+        if(!portfolio) throw new Error("Portfolio not found")
+            
+        const user = await this.prisma.user.findUnique({
+            where: {
+                id: portfolio!.user_id
+            }
+        })
+        return {
+            ...portfolio,
+            user
+        }
+    }
 }
