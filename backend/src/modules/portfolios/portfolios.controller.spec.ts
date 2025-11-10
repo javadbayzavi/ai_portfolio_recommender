@@ -10,7 +10,7 @@ const mockPortfoliosService = {
   createPortfolio: jest.fn(),
   updatePortfolio: jest.fn(),
   deletePortfolio: jest.fn(),
-}
+};
 
 const mockPortfolio = {
   id: "1",
@@ -18,17 +18,18 @@ const mockPortfolio = {
   user_id: "1",
   created_at: new Date(),
   updated_at: new Date(),
-}
+};
 
 describe("PortfoliosController", () => {
   let controller: PortfoliosController;
   let service: PortfoliosService;
 
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PortfoliosController],
-      providers: [{ provide: PortfoliosService, useValue: mockPortfoliosService }],
+      providers: [
+        { provide: PortfoliosService, useValue: mockPortfoliosService },
+      ],
     }).compile();
 
     controller = module.get<PortfoliosController>(PortfoliosController);
@@ -89,5 +90,4 @@ describe("PortfoliosController", () => {
     const portfolio = await controller.getEnrichedPortfolio(mockPortfolio.id);
     expect(portfolio).toEqual(enrichedPortfolio);
   });
-
 });

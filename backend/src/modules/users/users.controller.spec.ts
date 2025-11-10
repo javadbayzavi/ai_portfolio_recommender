@@ -48,7 +48,7 @@ describe("UsersController", () => {
 
   it("should return all users", async () => {
     const users = await controller.getUsers();
-    expect(users).toHaveLength(1)
+    expect(users).toHaveLength(1);
     expect(users).toEqual([mockUser]);
   });
 
@@ -68,5 +68,4 @@ describe("UsersController", () => {
     const user = await controller.deleteUser(mockUser.id);
     expect(user).toEqual({ id: mockUser.id });
   });
-
 });

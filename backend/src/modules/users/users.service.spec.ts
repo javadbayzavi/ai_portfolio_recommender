@@ -28,7 +28,7 @@ const mockPrismaService = {
   },
   portfolio: {
     findMany: jest.fn(),
-  }
+  },
 };
 
 describe("UsersService", () => {
@@ -89,7 +89,7 @@ describe("UsersService", () => {
     try {
       await service.delete("2");
     } catch (error: any) {
-      expect(error.status).toBe(40)
+      expect(error.status).toBe(40);
     }
   });
 
@@ -103,9 +103,9 @@ describe("UsersService", () => {
     try {
       await service.update(anotherUser);
     } catch (error: any) {
-      expect(error.status).toBe(40)
+      expect(error.status).toBe(40);
     }
-  })
+  });
 
   it("should create a user", async () => {
     const user = {
@@ -124,10 +124,10 @@ describe("UsersService", () => {
       user_id: "1",
       created_at: new Date(),
       updated_at: new Date(),
-    }
-    const user = await service.getUser("1")
-    mockPrismaService.portfolio.findMany.mockResolvedValue([enrichedPortfolio])
+    };
+    const user = await service.getUser("1");
+    mockPrismaService.portfolio.findMany.mockResolvedValue([enrichedPortfolio]);
     const portfolios = await service.getUserPortfolios("1");
-    expect(portfolios).toEqual({...user, portfolios : [enrichedPortfolio]})
-  })
+    expect(portfolios).toEqual({ ...user, portfolios: [enrichedPortfolio] });
+  });
 });

@@ -20,7 +20,7 @@
     "exactOptionalPropertyTypes": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    
+
     "strict": true,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": false,

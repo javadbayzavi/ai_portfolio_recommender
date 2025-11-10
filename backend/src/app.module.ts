@@ -11,7 +11,7 @@ import { AssetsModule } from "modules/assets/assets.module";
     PrismaModule,
     UsersModule,
     PortfoliosModule,
-    AssetsModule
+    AssetsModule,
   ],
 })
 export class AppModule {}

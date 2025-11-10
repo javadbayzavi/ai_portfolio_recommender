@@ -24,3 +24,15 @@ model Portfolio {
   user       User     @relation(fields: [user_id], references: [id])
   user_id    String
 }
+
+model Asset {
+  id         String @id @default(uuid())
+  name       String
+  symbol     String
+  type       String
+  quantity   Int
+  price      Float
+  portfolio  Portfolio  @relation(fields: [portfolio_id], references[id])
+  portfolio_id String
+}
+
