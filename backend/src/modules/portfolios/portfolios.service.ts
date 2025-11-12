@@ -22,12 +22,15 @@ export class PortfoliosService {
   }
 
   async createPortfolio(portfolio: any) {
+    portfolio.created_at = new Date();
+    portfolio.updated_at = new Date();
     return this.prisma.portfolio.create({
       data: portfolio,
     });
   }
 
   async updatePortfolio(portfolio: any) {
+    portfolio.updated_at = new Date();
     return this.prisma.portfolio.update({
       where: {
         id: portfolio.id,

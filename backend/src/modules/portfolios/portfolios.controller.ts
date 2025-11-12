@@ -8,6 +8,8 @@ import {
   Param,
 } from "@nestjs/common";
 import { PortfoliosService } from "./portfolios.service";
+import { PortfolioCreateDTO } from "./dto/portfolio.create.dto";
+import { PortfolioUpdateDTO } from "./dto/portfolio.update.dto";
 
 @Controller("portfolios")
 export class PortfoliosController {
@@ -24,12 +26,12 @@ export class PortfoliosController {
   }
 
   @Post()
-  createPortfolio(@Body() portfolio: any) {
+  createPortfolio(@Body() portfolio: PortfolioCreateDTO) {
     return this.service.createPortfolio(portfolio);
   }
 
   @Put()
-  updatePortfolio(@Body() portfolio: any) {
+  updatePortfolio(@Body() portfolio: PortfolioUpdateDTO) {
     return this.service.updatePortfolio(portfolio);
   }
 
