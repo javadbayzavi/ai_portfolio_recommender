@@ -2,10 +2,14 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service";
 import { UserCreateDTO } from "./dto/user.create.dto";
 import { UserUpdateDTO } from "./dto/user.update.dto";
+import { AssetsService } from "../../modules/assets/assets.service";
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private assetsService: AssetsService,
+  ) {}
   async getUser(id: string) {
     return this.prisma.user.findUnique({
       where: {
@@ -53,5 +57,19 @@ export class UsersService {
       ...user,
       portfolios: ports,
     };
+  }
+
+  async getUserAssets(userId: string) {
+    const user = await this.getUser(userId);
+    if (!user) throw new Error("User not found");
+    const userPortfolios = await this.getUserPortfolios(userId);
+    const assets =userPortfolios.portfolios.map(async (portfolio) => {
+      const assets = await this.assetsService.getPortfolioAssets(portfolio.id);
+      return assets;
+    })
+    return {
+      ...user,
+      assets: await Promise.all(assets)
+    }
   }
 }

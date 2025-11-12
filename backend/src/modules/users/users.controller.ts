@@ -37,4 +37,9 @@ export class UsersController {
   getUserPortfolios(@Param("id") id: string) {
     return this.service.getUserPortfolios(id);
   }
+
+  @Get(":id/assets")
+  getUserAssets(@Param("id") id: string) {
+    return this.service.getUserAssets(id);
+  }
 }
