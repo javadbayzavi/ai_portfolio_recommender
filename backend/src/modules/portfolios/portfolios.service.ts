@@ -1,9 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service";
+import { AssetsService } from "../assets/assets.service";
 
 @Injectable()
 export class PortfoliosService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private assetsService: AssetsService,
+  ) {}
 
   async getPortfolio(id: string) {
     return this.prisma.portfolio.findFirst({
@@ -61,5 +65,9 @@ export class PortfoliosService {
       ...portfolio,
       user,
     };
+  }
+
+  async getPortfolioAssets(portfolioId: string) {
+    return this.assetsService.getPortfolioAssets(portfolioId);
   }
 }

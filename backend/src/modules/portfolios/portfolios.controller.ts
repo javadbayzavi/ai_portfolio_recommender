@@ -42,4 +42,9 @@ export class PortfoliosController {
   getEnrichedPortfolio(@Param("id") id: string) {
     return this.service.getEnrichedPortfolio(id);
   }
+    @Get(":id/assets")
+    getPortfolioAssets(@Param("id") id: string){
+        return this.service.getPortfolioAssets(id)
+    }
+
 }
