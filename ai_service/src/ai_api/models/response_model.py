@@ -1,0 +1,2 @@
+class ResponseModel:
+    response: str
