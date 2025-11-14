@@ -1,2 +1,5 @@
 class ResponseModel:
-    response: str
+    def __init__(self, message:str | None):
+        self.response = message
+
+

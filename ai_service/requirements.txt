@@ -10,3 +10,7 @@ fastapi
 dotenv
 mcp
 mcp-client
+boto3
+testcontainers[redis]
+testcontainers[postgres]
+redis
