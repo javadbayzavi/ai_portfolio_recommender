@@ -1,10 +1,7 @@
 from ai_api.models.request_model import RequestModel
 from ai_api.models.response_model import ResponseModel
 from typing import Callable
-from enum import Enum
-
-class AICommand(Enum):
-    RECOMMEND = "recommend"
+from ai_api.process_command import AICommand
 
 process_handlers : dict[str, Callable[[dict[str, str]], dict[str, str]]] = {}
 

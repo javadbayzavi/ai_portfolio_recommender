@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from ai_api.models.response_model import ResponseModel
 from ai_api.models.request_model import RequestModel
 from ai_api.process_requester import process_request
-from ai_api.process_requester import AICommand
+from ai_api.process_command import AICommand
 
 
 app = FastAPI()
