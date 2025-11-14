@@ -1,9 +1,20 @@
 from fastapi import FastAPI
 from ai_api.models.response_model import ResponseModel
+from ai_api.models.request_model import RequestModel
+from ai_api.process_requester import process_request
 
 app = FastAPI()
 
 @app.get("/")
 async def root():
-    return ResponseModel("Hello from AI Service")
+    return ResponseModel(
+            {"message": "Hello from AI Service"}
+        )
+
+@app.get("/recommend/{asset}")
+async def recommend(asset: str):
+    return process_request(
+            RequestModel("recommend", {"asset": asset})
+        )
+
 
