@@ -3,21 +3,17 @@ import logging
 import json
 from ai_api.process_requester import register_process_handler
 from ai_api.process_requester import AICommand
+from dataclasses import dataclass
 
+@dataclass
 class CacheTemplate:
-    def __init__(self, id: str | None = None, response: str | None = None, requester: str | None = None, subject: str | None = None):
-        self.id = id
-        self.response = response
-        self.requester = requester
-        self.subject = subject
-    
+    id : str | None = None
+    response : str | None = None
+    requester : str | None = None
+    subject : str | None = None
+
     def to_dic(self):
         return self.__dict__
-    
-    def __eq__(self, value):
-        if not isinstance(value, CacheTemplate):
-            return False
-        return self.__dict__ == value.__dict__
 
 
 
@@ -37,7 +33,7 @@ class CacheService:
 
 
     def set(self, key, value: CacheTemplate):
-        self.redis_client.json().set(key, ".", value.to_dic())
+        self.redis_client.json().set(key, ".", value.__dict__)
     
     def delete(self, key):
         self.redis_client.json().delete(key, ".")
