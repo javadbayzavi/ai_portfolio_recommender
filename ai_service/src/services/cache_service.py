@@ -1,8 +1,9 @@
 from redis import Redis
 import logging
 import json
+from ai_api.process_requester import register_process_handler
+from ai_api.process_requester import AICommand
 
-        
 class CacheTemplate:
     def __init__(self):
         self.id: str
@@ -40,3 +41,9 @@ class CacheService:
 
 cache_service = CacheService()
 cache_service.initiate()
+
+
+def cache_lookup(param: dict[str, str]) -> dict[str, str]:
+    pass
+
+register_process_handler(AICommand.RECOMMEND, cache_lookup)

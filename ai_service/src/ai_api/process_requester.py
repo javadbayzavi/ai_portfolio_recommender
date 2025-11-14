@@ -1,15 +1,18 @@
-from ai_api.models import RequestModel
-from ai_api.models import ResponseModel
+from ai_api.models.request_model import RequestModel
+from ai_api.models.response_model import ResponseModel
 from typing import Callable
+from enum import Enum
 
+class AICommand(Enum):
+    RECOMMEND = "recommend"
 
 process_handlers : dict[str, Callable[[dict[str, str]], dict[str, str]]] = {}
 
-def register_process_handler(command: str, handler: callable):
-    process_handlers[command] = handler
+def register_process_handler(command: AICommand, handler: callable):
+    process_handlers[command.value] = handler
 
-def get_process_handler(command: str) -> callable:
-    return process_handlers.get(command, None)
+def get_process_handler(command: AICommand) -> callable:
+    return process_handlers.get(command.value, None)
 
 
 async def process_request(request: RequestModel) -> ResponseModel:

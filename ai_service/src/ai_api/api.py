@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from ai_api.models.response_model import ResponseModel
 from ai_api.models.request_model import RequestModel
 from ai_api.process_requester import process_request
+from ai_api.process_requester import AICommand
+
 
 app = FastAPI()
 
@@ -14,7 +16,7 @@ async def root():
 @app.get("/recommend/{asset}")
 async def recommend(asset: str):
     return process_request(
-            RequestModel("recommend", {"asset": asset})
+            RequestModel(AICommand.RECOMMEND, {"asset": asset})
         )
 
 
