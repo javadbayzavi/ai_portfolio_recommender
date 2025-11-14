@@ -1,3 +1,7 @@
 class RequestModel():
-    prompt: str
-    tools_name: str
+    def __init__(self, command: str, params: dict[str, str]):
+        self.command = command
+        self.params = params
+
+
+
