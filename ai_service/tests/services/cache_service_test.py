@@ -63,9 +63,18 @@ def test_should_update_cache(cache_service_instance, cache_template_instance):
         "new_subject"
     )
     assert cache_service_instance.get("test_key") != new_cache_item
-    
+
     cache_service_instance.set("test_key", new_cache_item)
     assert cache_service_instance.get("test_key") == new_cache_item
+
+def test_should_clear_cache(redis_client, cache_service_instance, cache_template_instance):
+    cache_service_instance.set("test_key", cache_template_instance)
+    cache_service_instance.clear()
+    assert cache_service_instance.get("test_key") is None
+    assert redis_client.keys() == []
+    
+
+
 
 
     
