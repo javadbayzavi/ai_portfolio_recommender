@@ -5,45 +5,54 @@ from ai_api.process_requester import register_process_handler
 from ai_api.process_requester import AICommand
 
 class CacheTemplate:
-    def __init__(self):
-        self.id: str
-        self.response : str
-        self.requester: str
-        self.subject: str
+    def __init__(self, id: str | None = None, response: str | None = None, requester: str | None = None, subject: str | None = None):
+        self.id = id
+        self.response = response
+        self.requester = requester
+        self.subject = subject
+    
+    def to_dic(self):
+        return self.__dict__
+    
+    def __eq__(self, value):
+        if not isinstance(value, CacheTemplate):
+            return False
+        return self.__dict__ == value.__dict__
+
+
+
 
 logger = logging.getLogger("CacheService")
 
 
 class CacheService:
-    def __init__(self):
-        self.redis = Redis(host='localhost', db=0, port=6379, decode_responses=True)
-        pass
+    def __init__(self, redis=None):
+        self.redis_client = redis or self.initiate_default_cache()
+
 
     def get(self, key) -> CacheTemplate:
-        self.redis.get_cache(key)
-        raw_json = self.redis.json().get(key, ".")
-        return json.loads(raw_json)
+        raw_data = self.redis_client.json().get(key, ".")
+        return CacheTemplate(**raw_data) if raw_data is not None  else None
+    
+
 
     def set(self, key, value: CacheTemplate):
-        self.redis.set(key, value)
-        self.redis.json().set(key, ".", json.dumps(value))
+        self.redis_client.json().set(key, ".", value.to_dic())
     
     def delete(self, key):
-        self.redis.json().delete(key, ".")
-        self.redis.delete(key)
+        self.redis_client.json().delete(key, ".")
+        self.redis_client.delete(key)
 
     def clear(self):
-        self.redis.flushdb()
+        self.redis_client.flushdb()
 
-    def initiate(self):
-        if self.redis is None:
-            self.redis = Redis(host='localhost', db=0, port=6379, decode_responses=True)
+    def initiate_default_cache(self):
+            return Redis(host='localhost', db=0, port=6379, decode_responses=True)
 
 cache_service = CacheService()
-cache_service.initiate()
 
 
 def cache_lookup(param: dict[str, str]) -> dict[str, str]:
-    pass
+    raise(NotImplementedError)
 
 register_process_handler(AICommand.RECOMMEND, cache_lookup)
