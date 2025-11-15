@@ -10,3 +10,9 @@ MCP_SERVER_HOST = getenv("MCP_SERVER_HOST", None)
 
 ALLOWED_ORIGINS: Sequence[str]  = getenv("ALLOWED_ORIGINS", None).split(",")
 ALLOWED_METHODS: Sequence[str] = getenv("ALLOWED_METHODS", None).split(",")
+
+DB_SERVER = getenv('DB_SERVER', None)
+DB_PORT = getenv('DB_PORT', None)
+DB_USER = getenv('DB_USER', None)
+DB_PASS = getenv('DB_PASS', None)
+DB_NAME = getenv('DB_NAME', None)

@@ -1,7 +1,7 @@
 from ai_api.models.request_model import RequestModel
 from ai_api.models.response_model import ResponseModel
 from fastapi.routing import APIRouter
-
+import services.db.db_service as db_service
 class AssetsModel(RequestModel):
     assets: list[str]
 
@@ -11,6 +11,7 @@ router = APIRouter(prefix="/recommend/assets")
 async def get_recommend(request: AssetsModel) -> ResponseModel:
     pass
 
-@router.post("/{asset}")
+@router.get("/{asset}")
 async def get_recommend(asset: str) -> ResponseModel:
-    return ResponseModel(response="Hello from AI Service")
+    result = db_service.get_portfolios_for_asset(asset_name=asset)
+    return ResponseModel(response=result)

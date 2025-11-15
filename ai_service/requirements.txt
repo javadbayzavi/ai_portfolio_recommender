@@ -15,3 +15,4 @@ testcontainers[redis]
 testcontainers[postgres]
 testcontainers[clickhouse]
 redis
+psycopg2-binary
