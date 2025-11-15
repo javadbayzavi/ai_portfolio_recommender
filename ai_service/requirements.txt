@@ -13,4 +13,5 @@ mcp-client
 boto3
 testcontainers[redis]
 testcontainers[postgres]
+testcontainers[clickhouse]
 redis

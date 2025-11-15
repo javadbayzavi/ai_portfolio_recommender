@@ -1,5 +1,6 @@
-class ResponseModel:
-    def __init__(self, message:dict[str, str] | None = None):
-        self.response = message
+from pydantic import BaseModel
+
+class ResponseModel(BaseModel):
+        response: dict
 
 

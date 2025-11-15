@@ -14,18 +14,16 @@ async def start_ai_service():
         app,
         host=AI_SERVICE_HOST,
         port=AI_SERVICE_PORT,
-        log_level="error"
+        log_level="info"
     )
     ai_server = Server(config=config)
     await ai_server.serve()
-    logger.info("AI Service Started")
 
 
 async def start_mcp_server():
     logger.info("Starting MCP Server")
     logger.info(f"Listening on {MCP_SERVER_HOST}:{MCP_SERVER_PORT}")
     await server.run_sse_async()
-    logger.info("MCP Server Started")
 
 async def main():
     await asyncio.gather(start_ai_service(), start_mcp_server())

@@ -6,6 +6,8 @@ from ai_api.process_requester import process_request
 from ai_api.process_command import AICommand
 from environment import ALLOWED_METHODS, ALLOWED_ORIGINS
 import logging
+from ai_api.routes.recommend import assets, portfolios, trends, users
+
 from contextlib import asynccontextmanager
 
 logger = logging.getLogger("AI Service")
@@ -17,7 +19,12 @@ async def ai_app_lifespan(app: FastAPI):
     logger.info("Shutting down AI Service")
 
 
-app = FastAPI(lifespan=ai_app_lifespan)
+app = FastAPI(
+        lifespan=ai_app_lifespan,
+        title="Recommender AI Service",
+        version="1.0",
+        description="This service provides an AI Based recomendation APIs"
+    )
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,13 +38,11 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return ResponseModel(
-            {"message": "Hello from AI Service"}
-        )
-
-@app.get("/recommend/{asset}")
-async def recommend(asset: str):
-    return process_request(
-            RequestModel(AICommand.RECOMMEND, {"asset": asset})
+            response={"message": "Hello from AI Service"}
         )
 
 
+app.include_router(assets.router)
+app.include_router(portfolios.router)
+app.include_router(trends.router)
+app.include_router(users.router)
