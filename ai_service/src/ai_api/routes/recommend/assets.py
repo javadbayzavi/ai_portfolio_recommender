@@ -13,5 +13,5 @@ async def get_recommend(request: AssetsModel) -> ResponseModel:
 
 @router.get("/{asset}")
 async def get_recommend(asset: str) -> ResponseModel:
-    result = db_service.get_portfolios_for_asset(asset_name=asset)
+    result = (model.get_dict() for model in db_service.get_portfolios_for_asset(asset_name=asset))
     return ResponseModel(response=result)
