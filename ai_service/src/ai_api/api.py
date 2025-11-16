@@ -1,9 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from ai_api.models.response_model import ResponseModel
 from environment import ALLOWED_METHODS, ALLOWED_ORIGINS
 import logging
 from ai_api.routes.recommend import assets, portfolios, trends, users
+from ai_api.rate_limiter import RateLimiter
 
 from contextlib import asynccontextmanager
 
@@ -30,7 +32,17 @@ app.add_middleware(
     allow_headers=["*"]
     )
 
-
+@app.middleware("http")
+async def check_rate_limit(request: Request, client_callback):
+    client_id = request.client.host
+    is_allowed = await RateLimiter().allow_client(client_id=client_id)
+    if not is_allowed:
+       return JSONResponse(
+            status_code=429,
+            content={"detail": "Too Many Requests"}
+        )
+    
+    return await client_callback(request)
 
 @app.get("/")
 async def root():

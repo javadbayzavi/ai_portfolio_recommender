@@ -16,3 +16,7 @@ DB_PORT = getenv('DB_PORT', None)
 DB_USER = getenv('DB_USER', None)
 DB_PASS = getenv('DB_PASS', None)
 DB_NAME = getenv('DB_NAME', None)
+
+CACHE_HOST = getenv('CACHE_HOST', None)
+CACHE_PORT = getenv('CACHE_PORT', None)
+CACHE_DB = getenv('CACHE_DB', None)

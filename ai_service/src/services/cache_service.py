@@ -1,9 +1,9 @@
-from redis import Redis
+from services.cache.server import redis_client
 import logging
-import json
 from ai_api.process_requester import register_process_handler
 from ai_api.process_requester import AICommand
 from dataclasses import dataclass
+from environment import CACHE_HOST, CACHE_PORT, CACHE_DB
 
 @dataclass
 class CacheTemplate:
@@ -43,7 +43,7 @@ class CacheService:
         self.redis_client.flushdb()
 
     def initiate_default_cache(self):
-            return Redis(host='localhost', db=0, port=6379, decode_responses=True)
+            return redis_client
 
 cache_service = CacheService()
 
