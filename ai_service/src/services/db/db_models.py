@@ -25,7 +25,6 @@ class Portfolio(Base):
     updated_at: Mapped[str] = mapped_column(SQL_DATE)
     user_id: Mapped[str] = mapped_column(UUID)
 
-
 class Asset(Base):
     __tablename__ = "Asset"
     id: Mapped[str] = mapped_column(primary_key=True, type_=UUID)

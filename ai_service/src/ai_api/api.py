@@ -6,6 +6,7 @@ from environment import ALLOWED_METHODS, ALLOWED_ORIGINS
 import logging
 from ai_api.routes.recommend import assets, portfolios, trends, users
 from ai_api.rate_limiter import RateLimiter
+from ai_api.url_shortener import URLShortener
 
 from contextlib import asynccontextmanager
 
@@ -49,6 +50,20 @@ async def root():
     return ResponseModel(
             response={"message": "Hello from AI Service"}
         )
+
+
+@app.get("/shorten")
+async def shorten_url(long_url: str):
+    return ResponseModel(
+            response={"code": URLShortener().shorten(long_url)}
+    )
+
+
+@app.get("/resolve")
+async def resolve_url(short_url: str):
+    return ResponseModel(
+            response={"url": URLShortener().resolve(short_url)}
+    )
 
 
 app.include_router(assets.router)
