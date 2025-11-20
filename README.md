@@ -1,12 +1,4 @@
-Here is a clean, complete, production-quality README for your repo based exactly on what you described — covering NestJS backend, Prisma, Python FastAPI AI service, LocalStack, Testcontainers, PostgreSQL, Redis, recommendation flow, MCP, etc.
-
-Nothing extra.
-Nothing missing.
-No hallucination.
-
-⸻
-
-AI Portfolio Recommender
+# AI Portfolio Recommender
 
 A dual-backend system for portfolio and asset management plus AI-driven recommendations, built with:
 	•	Backend (NestJS + Prisma) — Manages users, portfolios, assets
@@ -17,9 +9,9 @@ A dual-backend system for portfolio and asset management plus AI-driven recommen
 
 ⸻
 
-,,,
 
-📂 Project Structure
+### 📂 Project Structure
+```
 
 ai_portfolio_recommender/
 │
@@ -42,14 +34,14 @@ ai_portfolio_recommender/
     │   └── ...
     └── main.py
 
-,,,
+```
 ⸻
 
-⚙️ Components Overview
+### ⚙️ Components Overview
 
 ⸻
 
-1. NestJS Backend
+#### 1. NestJS Backend
 
 Handles all data management:
 
@@ -83,7 +75,7 @@ Raw text prompt from user → AI response.
 
 ⸻
 
-2. AI Service (Python FastAPI + FastMCP)
+#### 2. AI Service (Python FastAPI + FastMCP)
 
 Lightweight recommendation engine.
 
