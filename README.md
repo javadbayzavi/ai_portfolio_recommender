@@ -141,7 +141,6 @@ Pattern-based cross-user insights.
 
 Global trending assets across all users.
 
-⸻
 
 ## 🚀 Running Locally
 
