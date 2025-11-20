@@ -7,10 +7,8 @@ A dual-backend system for portfolio and asset management plus AI-driven recommen
 	•	LocalStack + Testcontainers — For local AWS-compatible testing
 	•	Fast, modular architecture that supports multiple types of recommendations
 
-⸻
 
-
-### 📂 Project Structure
+## 📂 Project Structure
 ```
 
 ai_portfolio_recommender/
@@ -35,13 +33,11 @@ ai_portfolio_recommender/
     └── main.py
 
 ```
-⸻
 
-### ⚙️ Components Overview
+## ⚙️ Components Overview
 
-⸻
 
-#### 1. NestJS Backend
+### 1. NestJS Backend
 
 Handles all data management:
 
@@ -75,7 +71,7 @@ Raw text prompt from user → AI response.
 
 ⸻
 
-#### 2. AI Service (Python FastAPI + FastMCP)
+### 2. AI Service (Python FastAPI + FastMCP)
 
 Lightweight recommendation engine.
 
@@ -151,22 +147,22 @@ Global trending assets across all users.
 
 ⸻
 
-🚀 Running Locally
+## 🚀 Running Locally
 
-Backend
-
+### Backend
+```
 cd backend
 npm install
 npx prisma migrate dev
 npm run start:dev
-
-AI Service
-
+```
+### AI Service
+```
 cd ai_service
 pip install -r requirements.txt
 python main.py
-
-With Testcontainers
+```
+### With Testcontainers
 
 Run tests normally — dependencies launch automatically.
 
@@ -177,18 +173,15 @@ Ensure LocalStack is running:
 localstack start
 
 
-⸻
-
-🛠️ Testing
+## 🛠️ Testing
 
 Each service includes isolated tests using:
 	•	Jest (Nest)
 	•	Pytest (Python)
 	•	Testcontainers for infrastructure dependencies
 
-⸻
 
-📌 Current Development Status
+## 📌 Current Development Status
 	•	Nest backend fully manages users, portfolios, assets.
 	•	AI service running FastAPI + SQLAlchemy + FastMCP.
 	•	Basic recommendation pipelines defined.
@@ -196,12 +189,7 @@ Each service includes isolated tests using:
 	•	LocalStack + Testcontainers integration ready.
 	•	Next step: advanced recommendation logic.
 
-⸻
 
-📄 License
+## 📄 License
 
 MIT (or add your preferred license)
-
-⸻
-
-If this version is approved, I will generate a downloadable README.md file exactly matching this content.
