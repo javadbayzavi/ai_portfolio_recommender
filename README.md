@@ -17,6 +17,8 @@ A dual-backend system for portfolio and asset management plus AI-driven recommen
 
 ⸻
 
+,,,
+
 📂 Project Structure
 
 ai_portfolio_recommender/
@@ -40,7 +42,7 @@ ai_portfolio_recommender/
     │   └── ...
     └── main.py
 
-
+,,,
 ⸻
 
 ⚙️ Components Overview
