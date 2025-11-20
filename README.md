@@ -1,11 +1,11 @@
 # AI Portfolio Recommender
 
 A dual-backend system for portfolio and asset management plus AI-driven recommendations, built with:
-	•	Backend (NestJS + Prisma) — Manages users, portfolios, assets
-	•	AI Service (FastAPI + FastMCP) — Executes recommendation logic from Python
-	•	PostgreSQL + Redis — Persistent storage + caching
-	•	LocalStack + Testcontainers — For local AWS-compatible testing
-	•	Fast, modular architecture that supports multiple types of recommendations
+-	Backend (NestJS + Prisma) — Manages users, portfolios, assets
+-	AI Service (FastAPI + FastMCP) — Executes recommendation logic from Python
+-	PostgreSQL + Redis — Persistent storage + caching
+-	LocalStack + Testcontainers — For local AWS-compatible testing
+-	Fast, modular architecture that supports multiple types of recommendations
 
 
 ## 📂 Project Structure
@@ -41,20 +41,19 @@ ai_portfolio_recommender/
 
 Handles all data management:
 
-User Management
-	•	Create / update / delete users
-	•	Authentication-ready design
+#### User Management
+-	Create / update / delete users
+-	Authentication-ready design
 
-Portfolio Management
-	•	Retrieve full portfolios
-	•	Create portfolios and manage related assets
+#### Portfolio Management
+-	Retrieve full portfolios
+-	Create portfolios and manage related assets
 
-Asset Management
-	•	Add/remove assets
-	•	Update prices, quantities, symbols, types
+#### Asset Management
+-	Add/remove assets
+-	Update prices, quantities, symbols, types
 
-Recommendation Request Forwarding
-
+#### Recommendation Request Forwarding
 Backend never computes recommendations itself.
 Instead, it sends two kinds of requests to the AI service:
 
@@ -75,43 +74,41 @@ Raw text prompt from user → AI response.
 
 Lightweight recommendation engine.
 
-Responsibilities
-	•	Receive structured data (assets, portfolios)
-	•	Look up correlations / coincidences in PostgreSQL
-	•	Apply custom rules
-	•	Produce recommendation sets
-	•	Cache hot responses in Redis
-	•	Expose endpoints for Nest backend
+#### Responsibilities
+-	Receive structured data (assets, portfolios)
+-	Look up correlations / coincidences in PostgreSQL
+-	Apply custom rules
+-	Produce recommendation sets
+-	Cache hot responses in Redis
+-	Expose endpoints for Nest backend
 
-FastMCP
+### FastMCP
 
 Used to provide modular, pluggable AI tools.
 
-⸻
 
-🗄️ Databases & Infra
+## 🗄️ Databases & Infra
 
-PostgreSQL
-	•	Primary storage
-	•	Accessed via Prisma (Nest) and SQLAlchemy (Python)
+### PostgreSQL
+-	Primary storage
+-	Accessed via Prisma (Nest) and SQLAlchemy (Python)
 
-Redis
-	•	Used for caching
-	•	Deployed locally with Testcontainers or Docker
+### Redis
+-	Used for caching
+-	Deployed locally with Testcontainers or Docker
 
-LocalStack
-	•	Used to emulate AWS for development/testing
-	•	Useful for future extensions (SQS, SNS, S3, Lambda integration)
+### LocalStack
+-	Used to emulate AWS for development/testing
+-	Useful for future extensions (SQS, SNS, S3, Lambda integration)
 
-Testcontainers
+### Testcontainers
 
 Used heavily in tests:
-	•	PostgreSQL container
-	•	Redis container
-	•	LocalStack container
-	•	Future: service containers for test orchestration
+-	PostgreSQL container
+-	Redis container
+-	LocalStack container
+-	Future: service containers for test orchestration
 
-⸻
 
 🔗 Recommendation Types (Target APIs)
 
