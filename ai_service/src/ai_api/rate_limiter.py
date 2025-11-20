@@ -31,6 +31,7 @@ class TokentBucket:
 
 class RateLimiter:
     def __init__(self, cache_service = None):
+        self.lock = asyncio.Lock()
         if cache_service is None:
             self.cache_client = redis_client
         else:
@@ -38,8 +39,7 @@ class RateLimiter:
     
 
     async def allow_client(self, client_id) -> bool:
-        lock = asyncio.Lock()
-        async with lock:
+        async with self.lock:
             data = self.cache_client.get(client_id)
 
             if data:
