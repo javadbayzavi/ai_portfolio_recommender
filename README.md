@@ -110,7 +110,7 @@ Used heavily in tests:
 -	Future: service containers for test orchestration
 
 
-🔗 Recommendation Types (Target APIs)
+## 🔗 Recommendation Types (Target APIs)
 
 These will be implemented across the backend and AI service:
 
