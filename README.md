@@ -189,4 +189,4 @@ Each service includes isolated tests using:
 
 ## 📄 License
 
-MIT (or add your preferred license)
+#### MIT
