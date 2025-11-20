@@ -68,7 +68,6 @@ Backend forwards structured data → AI Service returns suggestions.
 #### Type B: Prompt-based recommendations
 Raw text prompt from user → AI response.
 
-⸻
 
 ### 2. AI Service (Python FastAPI + FastMCP)
 
