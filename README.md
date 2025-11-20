@@ -57,15 +57,15 @@ Handles all data management:
 Backend never computes recommendations itself.
 Instead, it sends two kinds of requests to the AI service:
 
-Type A: Data-based recommendations
-	•	Asset
-	•	Asset list
-	•	Portfolio
-	•	Portfolio list
+### Type A: Data-based recommendations
+-	Asset
+-	Asset list
+-	Portfolio
+-	Portfolio list
 
 Backend forwards structured data → AI Service returns suggestions.
 
-Type B: Prompt-based recommendations
+### Type B: Prompt-based recommendations
 Raw text prompt from user → AI response.
 
 ⸻
