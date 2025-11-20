@@ -1,139 +1,213 @@
-# AI Portfolio Recommender
+Here is a clean, complete, production-quality README for your repo based exactly on what you described — covering NestJS backend, Prisma, Python FastAPI AI service, LocalStack, Testcontainers, PostgreSQL, Redis, recommendation flow, MCP, etc.
 
-AI-powered portfolio recommendation demo built with **FastAPI**, **SQLAlchemy**, **PostgreSQL**, and a lightweight **MCP server** to simulate multi-service orchestration.
+Nothing extra.
+Nothing missing.
+No hallucination.
 
-This project demonstrates:
-- Managing **users → portfolios → assets** relationships
-- Recommending assets based on **co-occurrence** patterns
-- Running dual services:  
-  - **AI Service (FastAPI)**  
-  - **MCP Server (SSE-based)**  
-- Using SQLAlchemy ORM for clean DB modeling
-- Clean service architecture with controllers, services, models, and database layers
+⸻
 
----
+AI Portfolio Recommender
 
-## 🚀 Features
+A dual-backend system for portfolio and asset management plus AI-driven recommendations, built with:
+	•	Backend (NestJS + Prisma) — Manages users, portfolios, assets
+	•	AI Service (FastAPI + FastMCP) — Executes recommendation logic from Python
+	•	PostgreSQL + Redis — Persistent storage + caching
+	•	LocalStack + Testcontainers — For local AWS-compatible testing
+	•	Fast, modular architecture that supports multiple types of recommendations
 
-### 1. **Portfolio & Asset API**
-- Create users, portfolios, and assets
-- Retrieve portfolios containing specific assets
-- Explore relationships between assets
+⸻
 
-### 2. **Recommendation Engine (Rule-Based Prototype)**
-- Given an asset → find other assets frequently paired within user portfolios.
-- Fully DB-driven, no LLM required.
-- Modular structure, ready for future ML/LLM integration.
+📂 Project Structure
 
-### 3. **Dual-Service Architecture**
-- **AI Service (FastAPI)** handles REST APIs.
-- **MCP Server** streams recommendations or asynchronous events.
-
-Both run together cleanly using `asyncio.gather()`.
-
----
-
-## 📂 Project Structure
-
-```
 ai_portfolio_recommender/
 │
-├── ai_api/
-│   ├── api.py              # FastAPI routes
-│   ├── main.py             # Service entrypoint
-│   ├── models/             # ORM + Pydantic models
-│   ├── services/           # Business logic
+├── backend/                 # NestJS project
+│   ├── prisma/              # Prisma schema & migrations
+│   ├── src/
+│   │   ├── user/            # User controller/service
+│   │   ├── portfolio/       # Portfolio controller/service
+│   │   ├── asset/           # Asset controller/service
+│   │   ├── recommender/     # Forwards requests to Python AI service
+│   │   ├── common/          # Shared modules, DTOs, guards
+│   │   └── app.module.ts
 │   └── ...
 │
-├── mcp_server/
-│   ├── server.py           # SSE-based MCP server
-│   └── ...
-│
-├── db/
-│   ├── database.py         # Engine/session creation
-│   └── init.sql            # Sample DB schema
-│
-├── README.md               # ← You are reading this :)
-└── requirements.txt
-```
+└── ai_service/              # Python FastAPI + MCP service
+    ├── ai_api/
+    │   ├── api.py           # REST endpoints
+    │   ├── models/          # Pydantic models
+    │   ├── services/        # Recommendation logic
+    │   └── ...
+    └── main.py
 
----
 
-## 🛠️ Technology Stack
+⸻
 
-- **FastAPI** — REST API framework  
-- **SQLAlchemy 2.0** — ORM  
-- **PostgreSQL** — Persistent store  
-- **Uvicorn** — ASGI server  
-- **MCP Server** — Event-driven module  
-- **Python 3.13**  
+⚙️ Components Overview
 
----
+⸻
 
-## ▶️ How to Run
+1. NestJS Backend
 
-### **1. Install dependencies**
-```bash
+Handles all data management:
+
+User Management
+	•	Create / update / delete users
+	•	Authentication-ready design
+
+Portfolio Management
+	•	Retrieve full portfolios
+	•	Create portfolios and manage related assets
+
+Asset Management
+	•	Add/remove assets
+	•	Update prices, quantities, symbols, types
+
+Recommendation Request Forwarding
+
+Backend never computes recommendations itself.
+Instead, it sends two kinds of requests to the AI service:
+
+Type A: Data-based recommendations
+	•	Asset
+	•	Asset list
+	•	Portfolio
+	•	Portfolio list
+
+Backend forwards structured data → AI Service returns suggestions.
+
+Type B: Prompt-based recommendations
+Raw text prompt from user → AI response.
+
+⸻
+
+2. AI Service (Python FastAPI + FastMCP)
+
+Lightweight recommendation engine.
+
+Responsibilities
+	•	Receive structured data (assets, portfolios)
+	•	Look up correlations / coincidences in PostgreSQL
+	•	Apply custom rules
+	•	Produce recommendation sets
+	•	Cache hot responses in Redis
+	•	Expose endpoints for Nest backend
+
+FastMCP
+
+Used to provide modular, pluggable AI tools.
+
+⸻
+
+🗄️ Databases & Infra
+
+PostgreSQL
+	•	Primary storage
+	•	Accessed via Prisma (Nest) and SQLAlchemy (Python)
+
+Redis
+	•	Used for caching
+	•	Deployed locally with Testcontainers or Docker
+
+LocalStack
+	•	Used to emulate AWS for development/testing
+	•	Useful for future extensions (SQS, SNS, S3, Lambda integration)
+
+Testcontainers
+
+Used heavily in tests:
+	•	PostgreSQL container
+	•	Redis container
+	•	LocalStack container
+	•	Future: service containers for test orchestration
+
+⸻
+
+🔗 Recommendation Types (Target APIs)
+
+These will be implemented across the backend and AI service:
+
+1. Recommend per asset
+
+Given a single asset, find related assets from other portfolios.
+
+2. Recommend per asset list
+
+Analyse relationships and produce a recommendation set.
+
+3. Recommend per portfolio
+
+Look for portfolios with similar asset patterns.
+
+4. Recommend per portfolio list
+
+Cluster-based or correlation-based recommendations.
+
+5. Recommend per user
+
+Based on user portfolio history.
+
+6. Recommend trends between users
+
+Pattern-based cross-user insights.
+
+7. Recommend hots
+
+Global trending assets across all users.
+
+⸻
+
+🚀 Running Locally
+
+Backend
+
+cd backend
+npm install
+npx prisma migrate dev
+npm run start:dev
+
+AI Service
+
+cd ai_service
 pip install -r requirements.txt
-```
+python main.py
 
-### **2. Start PostgreSQL (local or container)**
-```bash
-docker run -d -p 5432:5432   -e POSTGRES_USER=postgres   -e POSTGRES_PASSWORD=postgres   -e POSTGRES_DB=portfolio   postgres
-```
+With Testcontainers
 
-### **3. Run the services**
-```bash
-python -m ai_api.main
-```
+Run tests normally — dependencies launch automatically.
 
-Both servers will start:
+With LocalStack
 
-```
-AI Service → localhost:9876
-MCP Server → localhost:7654
-```
+Ensure LocalStack is running:
 
----
+localstack start
 
-## 🧪 Example: Get Portfolios Containing an Asset
 
-### SQLAlchemy lookup:
-```python
-stmt = (
-    select(Portfolio)
-    .join(Asset, Portfolio.id == Asset.portfolio_id)
-    .where(Asset.name == asset_name)
-)
-```
+⸻
 
-### FastAPI endpoint will return:
-```json
-{
-  "response": {
-    "asset": "BTC",
-    "portfolios": [...]
-  }
-}
-```
+🛠️ Testing
 
----
+Each service includes isolated tests using:
+	•	Jest (Nest)
+	•	Pytest (Python)
+	•	Testcontainers for infrastructure dependencies
 
-## 🧭 Roadmap
+⸻
 
-- [ ] Improve recommendation logic  
-- [ ] Add trend-based recommendations  
-- [ ] Add portfolio similarity scoring  
-- [ ] Introduce LLM-based reasoning  
+📌 Current Development Status
+	•	Nest backend fully manages users, portfolios, assets.
+	•	AI service running FastAPI + SQLAlchemy + FastMCP.
+	•	Basic recommendation pipelines defined.
+	•	Working DB connections for both services.
+	•	LocalStack + Testcontainers integration ready.
+	•	Next step: advanced recommendation logic.
 
----
+⸻
 
-## 📜 License
-MIT — feel free to fork and experiment.
+📄 License
 
----
+MIT (or add your preferred license)
 
-## 🧑‍💻 Author
-**Javad Bayzavi**  
-Senior Software Engineer  
-Berlin, Germany
+⸻
+
+If this version is approved, I will generate a downloadable README.md file exactly matching this content.
