@@ -176,18 +176,18 @@ localstack start
 ## 🛠️ Testing
 
 Each service includes isolated tests using:
-	•	Jest (Nest)
-	•	Pytest (Python)
-	•	Testcontainers for infrastructure dependencies
+- Jest (Nest)
+- Pytest (Python)
+- Testcontainers for infrastructure dependencies
 
 
 ## 📌 Current Development Status
-	•	Nest backend fully manages users, portfolios, assets.
-	•	AI service running FastAPI + SQLAlchemy + FastMCP.
-	•	Basic recommendation pipelines defined.
-	•	Working DB connections for both services.
-	•	LocalStack + Testcontainers integration ready.
-	•	Next step: advanced recommendation logic.
+- Nest backend fully manages users, portfolios, assets.
+- AI service running FastAPI + SQLAlchemy + FastMCP.
+- Basic recommendation pipelines defined.
+- Working DB connections for both services.
+- LocalStack + Testcontainers integration ready.
+- Next step: advanced recommendation logic.
 
 
 ## 📄 License
