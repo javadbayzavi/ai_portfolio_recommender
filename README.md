@@ -160,15 +160,15 @@ pip install -r requirements.txt
 python main.py
 ```
 ### With Testcontainers
-
+```
 Run tests normally — dependencies launch automatically.
-
-With LocalStack
+```
+### With LocalStack
 
 Ensure LocalStack is running:
-
+```
 localstack start
-
+```
 
 ## 🛠️ Testing
 
