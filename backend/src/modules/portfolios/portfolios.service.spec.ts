@@ -1,6 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { PortfoliosService } from "./portfolios.service";
 import { PrismaService } from "../../prisma/prisma.service";
+import { AssetsService } from "../assets/assets.service";
 
 const mockPrisma = {
   portfolio: {
@@ -13,6 +14,9 @@ const mockPrisma = {
   user: {
     findUnique: jest.fn(),
   },
+};
+const mockAssetsService = {
+  getPortfolioAssets: jest.fn(),
 };
 
 describe("PortfoliosService", () => {
@@ -31,6 +35,7 @@ describe("PortfoliosService", () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         PortfoliosService,
+        { provide: AssetsService, useValue: mockAssetsService},
         { provide: PrismaService, useValue: mockPrisma },
       ],
     }).compile();
