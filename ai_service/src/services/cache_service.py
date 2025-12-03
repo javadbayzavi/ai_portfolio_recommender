@@ -50,5 +50,3 @@ cache_service = CacheService()
 
 def cache_lookup(param: dict[str, str]) -> dict[str, str]:
     raise(NotImplementedError)
-
-register_process_handler(AICommand.RECOMMEND, cache_lookup)
