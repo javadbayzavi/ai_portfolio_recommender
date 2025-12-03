@@ -7,6 +7,7 @@ import logging
 from ai_api.routes.recommend import assets, portfolios, trends, users
 from ai_api.rate_limiter import RateLimiter
 from ai_api.url_shortener import URLShortener
+from ai_api.routes.recommend.assets import AssetRecommendationRouter
 
 from contextlib import asynccontextmanager
 
@@ -66,7 +67,8 @@ async def resolve_url(short_url: str):
     )
 
 
-app.include_router(assets.router)
+# app.include_router(assets.router)
 app.include_router(portfolios.router)
 app.include_router(trends.router)
 app.include_router(users.router)
+app.include_router(AssetRecommendationRouter().getRoute())
