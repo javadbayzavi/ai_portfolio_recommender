@@ -20,11 +20,15 @@ class AssetRecommendationRouter:
         return self.router
 
 
-    # @router.post("/")
     async def get_recommend(self, request: AssetsModel) -> ResponseModel:
         pass
 
-    # @router.get("/{asset}")
     async def get_recommend(self, asset: str) -> ResponseModel:
         result = self.service.getRecommend(asset=asset)
         return ResponseModel(response=result)
+    
+    async def get_ai_recommend(self, request: AssetsModel) -> ResponseModel:
+        pass
+
+    async def get_ai_recommend(self, asset: str) -> ResponseModel:
+        pass
